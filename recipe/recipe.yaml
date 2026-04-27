@@ -1,0 +1,62 @@
+schema_version: 1
+
+context:
+  name: search-engine-parser
+  version: "0.6.8"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/search-engine-parser-${{ version }}.tar.gz
+  sha256: 26a28b9dee1ccf5f5c228dce697cc3c0dbe38cd68062c72d68da9a9ef434838f
+
+build:
+  number: 1
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+  python:
+    entry_points:
+      - pysearch=search_engine_parser.core.cli:runner
+
+requirements:
+  host:
+    - pip
+    - python >=3.5
+  run:
+    - aiohttp ==3.7.4
+    - beautifulsoup4 ==4.9.1
+    - fake-useragent ==0.1.11
+    - lxml ==4.6.5
+    - python >=3.5
+    - blessed
+
+tests:
+  - python:
+      imports:
+        - search_engine_parser
+        - search_engine_parser.core
+      pip_check: true
+      python_version: ${{ python_min }}.*
+  - requirements:
+      run:
+        - pip
+    script:
+      - pysearch --help
+
+about:
+  license: MIT
+  license_file: LICENSE
+  summary: Lightweight package to query popular search engines and scrape for result titles, links and descriptions
+  description: |
+    search-engine-parser is a package that lets you query popular
+    search engines and scrape for result titles, links, descriptions and
+    more. It aims to scrape the widest range of search engines.
+  homepage: https://github.com/bisoncorps/search-engine-parser
+  repository: https://github.com/bisoncorps/search-engine-parser
+  documentation: https://search-engine-parser.readthedocs.io/
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
