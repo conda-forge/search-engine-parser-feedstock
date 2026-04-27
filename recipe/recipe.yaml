@@ -9,7 +9,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://pypi.io/packages/source/${{ name[0] }}/${{ name }}/search-engine-parser-${{ version }}.tar.gz
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/search-engine-parser-${{ version }}.tar.gz
   sha256: 26a28b9dee1ccf5f5c228dce697cc3c0dbe38cd68062c72d68da9a9ef434838f
 
 build:
@@ -24,7 +24,7 @@ requirements:
   host:
     - pip
     - python ${{ python_min }}.*
-    - ssetuptools <81
+    - setuptools <81
   run:
     - aiohttp ==3.7.4
     - beautifulsoup4 ==4.9.1
